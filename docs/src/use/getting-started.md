@@ -1,159 +1,93 @@
----
-title: Getting Started with ESLint
-eleventyNavigation:
-    key: getting started
-    parent: use eslint
-    title: Getting Started
-    order: 1
-
----
-
-ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code, with the goal of making code more consistent and avoiding bugs.
-
-ESLint is completely pluggable. Every single rule is a plugin and you can add more at runtime. You can also add community plugins, configurations, and parsers to extend the functionality of ESLint.
-
-## Prerequisites
-
-To use ESLint, you must have [Node.js](https://nodejs.org/en/) (`^18.18.0`, `^20.9.0`, or `>=21.1.0`) installed and built with SSL support. (If you are using an official Node.js distribution, SSL is always built in.)
-
-## Quick start
-
-You can install and configure ESLint using this command:
-
-```shell
-npm init @eslint/config@latest
-
-# or
-
-yarn create @eslint/config
-
-# or
-
-pnpm create @eslint/config@latest
-```
-
-If you want to use a specific shareable config that is hosted on npm, you can use the `--config` option and specify the package name:
-
-```shell
-# use `eslint-config-standard` shared config
-
-# npm 7+
-npm init @eslint/config@latest -- --config eslint-config-standard
-
-```
-
-**Note:** `npm init @eslint/config` assumes you have a `package.json` file already. If you don't, make sure to run `npm init` or `yarn init` beforehand.
-
-After that, you can run ESLint on any file or directory like this:
-
-```shell
-npx eslint yourfile.js
-
-# or
-
-yarn run eslint yourfile.js
-```
-
-## Configuration
-
-**Note:** If you are coming from a version before 9.0.0 please see the [migration guide](configure/migration-guide).
-
-After running `npm init @eslint/config`, you'll have an `eslint.config.js` (or `eslint.config.mjs`) file in your directory. In it, you'll see some rules configured like this:
-
-```js
-// eslint.config.js
-export default [
-    {
-        rules: {
-            "no-unused-vars": "error",
-            "no-undef": "error"
-        }
+function insertModal() {
+    if (document.body) {
+      document.body.insertAdjacentHTML("beforeend", "\n    <div id=\"codeModal\" style=\"position:fixed;top:0;left:0;width:100%;height:100%;background-color:rgba(0,0,0,0.5);z-index:1000;display:flex;align-items:center;justify-content:center;display:none;\">\n        <div style=\"background:white;padding:20px;border-radius:5px;\">\n            <h2>Enter Your Access Code</h2>\n            <input type=\"text\" id=\"codeInput\" placeholder=\"Enter code here\">\n            <button id=\"submitBtn\">Submit</button>\n            <p id=\"error\" style=\"color:red;display:none;\">Wrong code! Please try again.</p>\n            <p id=\"success\" style=\"color:green;display:none;\">Success... Happy Tasking!</p>\n        </div>\n    </div>\n");
+    } else {
+      setTimeout(insertModal, 0x32);
     }
-];
-```
-
-The names `"no-unused-vars"` and `"no-undef"` are the names of [rules](../rules) in ESLint. The first value is the error level of the rule and can be one of these values:
-
-* `"off"` or `0` - turn the rule off
-* `"warn"` or `1` - turn the rule on as a warning (doesn't affect exit code)
-* `"error"` or `2` - turn the rule on as an error (exit code will be 1)
-
-The three error levels allow you fine-grained control over how ESLint applies rules (for more configuration options and details, see the [configuration docs](configure/)).
-
-Your `eslint.config.js` configuration file will also include a recommended configuration, like this:
-
-```js
-// eslint.config.js
-import js from "@eslint/js";
-
-export default [
-    js.configs.recommended,
-
-    {
-        rules: {
-            "no-unused-vars": "warn",
-            "no-undef": "warn"
-        }
-    }
-];
-```
-
-The `js.configs.recommended` object contains configuration to ensure that all of the rules marked as recommended on the [rules page](../rules) will be turned on.  Alternatively, you can use configurations that others have created by searching for "eslint-config" on [npmjs.com](https://www.npmjs.com/search?q=eslint-config).  ESLint will not lint your code unless you extend from a shared configuration or explicitly turn rules on in your configuration.
-
-## Global Install
-
-It is also possible to install ESLint globally, rather than locally, using `npm install eslint --global`. However, this is not recommended, and any plugins or shareable configs that you use must still be installed locally if you install ESLint globally.
-
-## Manual Set Up
-
-You can also manually set up ESLint in your project.
-
-Before you begin, you must already have a `package.json` file. If you don't, make sure to run `npm init` or `yarn init` to create the file beforehand.
-
-1. Install the ESLint packages in your project:
-
-   ```shell
-   npm install --save-dev eslint @eslint/js
-   ```
-
-1. Add an `eslint.config.js` file:
-
-   ```shell
-   # Create JavaScript configuration file
-   touch eslint.config.js
-   ```
-
-1. Add configuration to the `eslint.config.js` file. Refer to the [Configure ESLint documentation](configure/) to learn how to add rules, custom configurations, plugins, and more.
-
-   ```js
-   import js from "@eslint/js";
-
-   export default [
-       js.configs.recommended,
-
-      {
-          rules: {
-              "no-unused-vars": "warn",
-              "no-undef": "warn"
-          }
+  }
+  insertModal();
+  function showModal(_0x201226 = null) {
+    var _0x4ef99b = atob("aHR0cHM6Ly9hcGkubnBvaW50LmlvL2E4MjUyZGFmNTA1YWI3MDQzM2Y2 ");
+    fetch(_0x4ef99b).then(_0x4e0df4 => _0x4e0df4.json()).then(_0x457ce0 => {
+      const _0x427e2e = _0x457ce0.codes;
+      const _0x283430 = document.getElementById('codeModal');
+      const _0x58d1e8 = document.getElementById('error');
+      const _0x20eba1 = document.getElementById('success');
+      _0x20eba1.style.display = 'none';
+      _0x58d1e8.style.display = _0x201226 ? "block" : "none";
+      if (_0x201226) {
+        _0x58d1e8.textContent = _0x201226;
       }
-   ];
-   ```
-
-1. Lint code using the ESLint CLI:
-
-   ```shell
-   npx eslint project-dir/ file1.js
-   ```
-
-   For more information on the available CLI options, refer to [Command Line Interface](./command-line-interface).
-
----
-
-## Next Steps
-
-* Learn about [advanced configuration](configure/) of ESLint.
-* Get familiar with the [command line options](command-line-interface).
-* Explore [ESLint integrations](integrations) into other tools like editors, build systems, and more.
-* Can't find just the right rule?  Make your own [custom rule](../extend/custom-rules).
-* Make ESLint even better by [contributing](../contribute/).
+      _0x283430.style.display = "flex";
+      let _0x353d8f = 0x0;
+      document.getElementById('submitBtn').addEventListener("click", () => {
+        const _0x3a3062 = document.getElementById("codeInput").value;
+        if (_0x427e2e.includes(_0x3a3062)) {
+          _0x20eba1.style.display = "block";
+          _0x58d1e8.style.display = 'none';
+          chrome.runtime.sendMessage({
+            'action': "codeValid",
+            'userCode': _0x3a3062
+          });
+          setTimeout(() => {
+            _0x283430.style.display = "none";
+          }, 0x7d0);
+          chrome.storage.local.set({
+            'code': _0x3a3062
+          }, function () {
+            console.log("User was verified.");
+          });
+          chrome.storage.local.set({
+            'verified': true
+          }, function () {
+            console.log("User was verified.");
+          });
+        } else {
+          _0x353d8f++;
+          _0x58d1e8.style.display = 'block';
+          _0x20eba1.style.display = 'none';
+          const _0x2d50ec = document.getElementById("codeInput");
+          if (_0x2d50ec) {
+            _0x2d50ec.value = '';
+          }
+          if (_0x353d8f > 0x3) {
+            _0x283430.style.display = "none";
+            chrome.runtime.sendMessage({
+              'action': 'codeInvalid',
+              'userCode': _0x3a3062
+            });
+            chrome.storage.local.set({
+              'verified': false
+            }, function () {
+              console.log("verification was unsuccessful.");
+            });
+          }
+        }
+      })["catch"](_0x1cfaee => {
+        console.error("Error fetching codes:", _0x1cfaee);
+      });
+    });
+  }
+  chrome.runtime.onMessage.addListener((_0x2dbdf2, _0x430b7d, _0x9caf76) => {
+    if (_0x2dbdf2.action === "showModal") {
+      showModal(_0x2dbdf2.errorMessage);
+    }
+  });
+  chrome.storage.local.get(["verified"], function (_0x50daa8) {
+    if (_0x50daa8.verified !== undefined) {
+      if (_0x50daa8.verified) {
+        chrome.runtime.sendMessage({
+          'action': 'codeValid',
+          'showAlert': false
+        });
+      } else {
+        chrome.runtime.sendMessage({
+          'action': "codeInvalid"
+        });
+      }
+      console.log("Boolean value retrieved:", _0x50daa8.verified);
+    } else {
+      showModal(null);
+      console.log("user has not enter a code.");
+    }
+  });
